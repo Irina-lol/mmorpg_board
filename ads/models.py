@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from tinymce.models import HTMLField
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
@@ -38,11 +41,14 @@ class Ad(models.Model):
         ('Potionsmakers', 'Зельевары'),
         ('Spellmasters', 'Мастера заклинаний'),
     ]
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
     title = models.CharField(max_length=255)
     content = HTMLField()
     category = models.CharField(max_length=20, choices=CATEGORIES)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
 
 class Response(models.Model):
     ad = models.ForeignKey(Ad, on_delete=models.CASCADE)

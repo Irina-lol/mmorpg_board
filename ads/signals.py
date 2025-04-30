@@ -7,8 +7,9 @@ from .models import Response
 def notify_about_response(sender, instance, created, **kwargs):
     if created:
         send_mail(
-            'Новый отклик на ваше объявление!',
-            f'Вам пришел отклик: {instance.text}',
+            'Новый отклик!',
+            f'Пользователь {instance.author} оставил отклик: {instance.text}',
             'from@example.com',
             [instance.ad.author.email],
+            fail_silently=False,
         )

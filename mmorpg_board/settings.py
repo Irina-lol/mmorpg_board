@@ -136,3 +136,11 @@ AUTHETICATION = [
 ]
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'irinakazynkina@gmail.com'
+EMAIL_HOST_PASSWORD = '0000'
+DEFAULT_FROM_EMAIL = 'irinakazynkina@gmail.com'
