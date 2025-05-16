@@ -4,5 +4,5 @@ class AdsConfig(AppConfig):
     default_auto_filed = 'django.db.models.BigAutoField'
     name = 'ads'
     def ready(self):
-        import importlib
-        signals = importlib.import_module('ads.signals')
+        import ads.signals
+        

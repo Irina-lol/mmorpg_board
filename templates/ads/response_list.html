@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Мои отклики</h2>
+    </div>
+    <div class="card-body">
+        <form method="get" class="mb-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <select name="category" class="form-select">
+                        <option value="">Все категории</option>
+                        {% for value, label in Ad.CATEGORIES %}
+                        <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Фильтровать</button>
+                </div>
+            </div>
+        </form>
+
+        {% for response in object_list %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ response.ad.title }}</h5>
+                <p class="card-text">{{ response.text }}</p>
+                <div class="d-flex gap-2">
+                    {% if not response.is_accepted %}
+                    <a href="{% url 'accept_response' response.id %}" class="btn btn-success">Принять</a>
+                    {% endif %}
+                    <a href="{% url 'reject_response' response.id %}" class="btn btn-danger">Удалить</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Нет откликов.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

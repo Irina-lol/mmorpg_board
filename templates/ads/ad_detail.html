@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h1>{{ ad.title }}</h1>
+        <p class="text-muted">Автор: {{ ad.author.username }} | Категория: {{ ad.get_category_display }}</p>
+    </div>
+    <div class="card-body">
+        {{ ad.content|safe }}
+    </div>
+
+    <div class="mt-4">
+        <h3>Отклики:</h3>
+        {% for response in ad.response_set.all %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <p>{{ response.text }}</p>
+                    <small class="text-muted">
+                        От {{ response.author.username }} ({{ response.created_at }})
+                    </small>
+                </div>
+            </div>
+        {% empty %}
+            <p>Пока нет откликов.</p>
+        {% endfor %}
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'response_create' ad.id %}" class="btn btn-primary">Оставить отклик</a>
+    </div>
+</div>
+{% endblock %}
